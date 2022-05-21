@@ -3,13 +3,12 @@ dotenv.config();
 
 require("./config/database").connect();
 
-
 // importing all the required packages
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require('cors');
-const session = require('express-session');
-
+const cors = require("cors");
+const session = require("express-session");
+const passport = require('passport');
 
 const app = express();
 
@@ -17,7 +16,7 @@ app.use(express.json());
 
 // configuring the bodyParser
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // adding the cors to make it accessible to everywhere
 app.use(
@@ -27,8 +26,24 @@ app.use(
   })
 );
 
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+// importing the passport strategies
+require('./middleware/auth');
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+/* ----------------- All the Routes ------------------- */
+app.use('/auth',require('./routes/auth'));
+
 
 // The last route when the route isn't valid
 app.use("*", (req, res) => {
@@ -43,6 +58,6 @@ app.use("*", (req, res) => {
 });
 
 app.listen(process.env.PORT || 8000, (err) => {
-    if (err) console.log(err);
-    else console.log('Server Started');
+  if (err) console.log(err);
+  else console.log("Server Started");
 });

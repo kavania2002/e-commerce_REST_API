@@ -5,8 +5,7 @@ const userSchema = new mongoose.Schema({
     name : String,
     username: String,
     hash: String,
-    salt: String,
-    buyer: Boolean
+    buyer: {type: Boolean, default: true}
 });
 
 userSchema.plugin(passLocalMongoose);
