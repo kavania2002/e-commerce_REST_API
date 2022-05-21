@@ -8,14 +8,16 @@ require("./config/database").connect();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require('cors');
+const session = require('express-session');
+
 
 const app = express();
 
 app.use(express.json());
 
 // configuring the bodyParser
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true }));
 
 // adding the cors to make it accessible to everywhere
 app.use(
@@ -24,6 +26,9 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // The last route when the route isn't valid
 app.use("*", (req, res) => {
