@@ -8,4 +8,4 @@ const productSchema = new mongoose.Schema({
 
 productSchema.plugin(passLocalMongoose);
 
-module.exports = new mongoose.Model("product", productSchema);
+module.exports = new mongoose.model("product", productSchema);

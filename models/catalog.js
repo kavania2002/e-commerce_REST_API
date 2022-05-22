@@ -8,4 +8,4 @@ const catalogSchema = new mongoose.Schema({
 
 catalogSchema.plugin(passLocalMongoose);
 
-module.exports = new mongoose.Model("catalog", catalogSchema);
+module.exports = new mongoose.model("catalog", catalogSchema);

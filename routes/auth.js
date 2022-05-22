@@ -22,6 +22,7 @@ router.post("/login", (req, res) => {
 });
 
 router.post("/register", (req, res) => {
+  console.log(req.body.username);
   User.register(
     { username: req.body.username },
     req.body.password,

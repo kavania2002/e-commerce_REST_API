@@ -5,3 +5,7 @@ const orderSchema = new mongoose.Schema({
   buyer: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
   products: [{ type: mongoose.Schema.ObjectId, ref: "product" }],
 });
+
+orderSchema.plugin(passLocalMongoose);
+
+module.exports = new mongoose.model('order',orderSchema);

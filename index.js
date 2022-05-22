@@ -8,7 +8,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const session = require("express-session");
-const passport = require('passport');
+const passport = require("passport");
 
 const app = express();
 
@@ -35,15 +35,14 @@ app.use(
 );
 
 // importing the passport strategies
-require('./middleware/auth');
+require("./middleware/auth");
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 /* ----------------- All the Routes ------------------- */
-app.use('/auth',require('./routes/auth'));
-
+app.use("/auth", require("./routes/auth"));
+app.use("/seller", require("./routes/seller"));
 
 // The last route when the route isn't valid
 app.use("*", (req, res) => {
