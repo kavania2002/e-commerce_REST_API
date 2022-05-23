@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+const mongoose = require("mongoose");
 
 const User = require("../models/user");
 const Catalog = require("../models/catalog");
 const Product = require("../models/product");
+const Order = require("../models/order");
 
 router.get("/list-of-sellers", (req, res) => {
   if (req.isAuthenticated() && req.user.buyer) {
@@ -41,6 +43,40 @@ router.get("/seller-catalog/:seller_id", (req, res) => {
     });
   } else {
     res.send("You are not authorized to see the seller catalog");
+  }
+});
+
+router.post("/create-order/:seller_id", (req, res, done) => {
+  if (req.isAuthenticated() && req.user.buyer) {
+    const buyerID = req.user._id;
+
+    const { items } = req.body;
+    console.log(items);
+
+    Catalog.findOne({ seller: req.params.seller_id }, (err, catalog) => {
+      const newOrder = new Order({
+        buyer: buyerID,
+        seller: req.params.seller_id,
+        products: items,
+      });
+
+      let found = false;
+      items.forEach((itemID) => {
+        if (catalog.products.findIndex((e) => e.toString() === itemID) == -1) {
+          res.send(`Items doesn't exist in catalog`);
+          found = true;
+        }
+      });
+
+      if (!found) {
+        newOrder.save((err) => {
+          if (err) console.log(err);
+          res.send("Order Placed Successfully");
+        });
+      }
+    });
+  } else {
+    res.send("You are not authorized to place an order");
   }
 });
 
