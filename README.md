@@ -61,5 +61,5 @@ Libraries Used:
 - GET /auth/login to get user details
 - Maybe user can like/dislike or give rating to a product
 - Add more details in the product (such as images, ratings)
-- If we move further, maybe it would be great a payment system
+- If we move further, maybe it would be great to add a payment system
 
