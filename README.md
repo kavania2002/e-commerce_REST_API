@@ -38,6 +38,7 @@ Here the list of APIs that you can fetch:
     For Authentication of Buyer and Seller
         - POST /api/auth/register
         - POST /api/auth/login
+        - POST /api/auth/logout
 
     For Buyers
         - GET /api/buyer/list-of-sellers
