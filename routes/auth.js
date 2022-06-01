@@ -43,4 +43,13 @@ router.post("/register", (req, res) => {
   );
 });
 
+router.post("/logout", (req, res) => {
+  if (req.isAuthenticated()) {
+    req.logout();
+    res.send('Successfully Logged out');
+  } else {
+    res.send("Please log in First");
+  }
+});
+
 module.exports = router;
