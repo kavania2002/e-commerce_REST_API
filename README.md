@@ -62,4 +62,5 @@ Libraries Used:
 - Maybe user can like/dislike or give rating to a product
 - Add more details in the product (such as images, ratings)
 - If we move further, maybe it would be great to add a payment system
+- POST /admin/products to add various types of products
 
